@@ -1,0 +1,41 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+bool checkStackPermutation(int ip[], int op[], int n){
+    deque<int>q1;
+    deque<int>q2;
+    for(int i=0;i<n;i++){
+        q1.push_back(ip[i]);
+    }
+    for(int i=0;i<n;i++){
+        q2.push_back(op[i]);
+    }
+    for(int i=0;i<n;i++){
+        int temp=q1.back();
+        q1.pop_back();
+        q1.push_front(temp);
+         if(q1==q2) return false;
+    }
+    if(q1==q2) return false;
+    return true;
+
+
+
+}
+
+int main()
+{
+    // Input Queue
+    int input[] = {1, 2, 3};
+  
+    // Output Queue
+    int output[] = {3, 1, 2};
+  
+    int n = 3;
+  
+    if (checkStackPermutation(input, output, n))
+        cout << "Yes";
+    else
+        cout << "Not Possible";
+    return 0;
+}
