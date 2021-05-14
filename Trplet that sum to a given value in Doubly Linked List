@@ -1,0 +1,87 @@
+#include <bits/stdc++.h>
+ 
+using namespace std;
+ 
+// structure of node of doubly linked list
+struct Node {
+    int data;
+    struct Node* next, *prev;
+};
+ 
+// function to count triplets in a sorted doubly linked list
+// whose sum is equal to a given value 'x'
+void countTriplets(struct Node* head, int x)
+{
+    int count=0;
+   struct Node* last=head;
+   struct Node* start=head;
+   while(last->next!=NULL){
+       last=last->next;
+   }
+   while(start!=NULL && last!=start && last->next!=start){
+       
+       struct Node* temp=start->next;
+       int value=start->data;
+       value+=last->data;
+       value+=temp->data;
+       //while(temp!=last){
+           //if(value>x) last=last->prev;
+          
+           if(value==x) {
+               last=last->prev;
+               start=start->next;
+               count++;
+           }
+            else if(value<x) start=start->next;
+            else{
+                last=last->prev;
+            }
+           
+       //}
+   }
+    cout<< count;
+    return;
+}
+ 
+// A utility function to insert a new node at the
+// beginning of doubly linked list
+void insert(struct Node** head, int data)
+{
+    // allocate node
+    struct Node* temp = new Node();
+ 
+    // put in the data
+    temp->data = data;
+    temp->next = temp->prev = NULL;
+ 
+    if ((*head) == NULL)
+        (*head) = temp;
+    else {
+        temp->next = *head;
+        (*head)->prev = temp;
+        (*head) = temp;
+    }
+}
+ 
+// Driver program to test above
+int main()
+{
+    // start with an empty doubly linked list
+    struct Node* head = NULL;
+ 
+    // insert values in sorted order
+    insert(&head, 9);
+    insert(&head, 8);
+    insert(&head, 6);
+    insert(&head, 5);
+    insert(&head, 4);
+    insert(&head, 2);
+    insert(&head, 1);
+ 
+    int x = 17;
+ 
+    //cout << "Count = "
+      //   << countTriplets(head, x);
+      countTriplets(head, x);
+    return 0;
+}
