@@ -1,0 +1,29 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+int function1(string str){
+    int count=0;
+    deque<char>q ;
+    for(int i=0;i<str.size();i++){
+        q.push_back(str[i]);
+    }
+    while(q.size()>1){
+        if(q.front()==q.back()){
+            q.pop_front();
+            q.pop_back();
+        }
+        if(q.front()!=q.back()){
+            count++;
+            q.pop_back();
+        }
+    }
+    return count;
+}
+
+int main(){
+    string str;
+    cin>>str;
+    int ans=function1(str);
+    cout<<ans;
+    return 0;
+}
