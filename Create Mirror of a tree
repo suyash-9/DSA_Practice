@@ -1,0 +1,55 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+typedef struct node{
+    int data;
+    struct node* left;
+    struct node* right;
+}node;
+
+node* createNode(int val){
+    struct node* newnode=(struct node*)malloc(sizeof(struct node*));
+    newnode->data=val;
+    newnode->left=NULL;
+    newnode->right=NULL;
+    return newnode;
+}
+
+void inorder(node* root){
+    if(root==NULL) return;
+    inorder(root->left);
+    cout<<root->data<<" ";
+    inorder(root->right);
+}
+
+void createMirror(node* root,node** mirror){
+    if(root==NULL) {
+        mirror=NULL;
+        return;
+    }
+    *mirror=createNode(root->data);
+    createMirror(root->left,&((*mirror)->right));
+    createMirror(root->right,&((*mirror)->left));
+}
+
+int main()
+{
+ 
+    node* tree = createNode(5);
+    tree->left = createNode(3);
+    tree->right = createNode(6);
+    tree->left->left = createNode(2);
+    tree->left->right = createNode(4);
+ 
+    // Print inorder traversal of the input tree
+    printf("Inorder of original tree: ");
+    inorder(tree);
+    node* mirror = NULL;
+    createMirror(tree, &mirror);
+ 
+    // Print inorder traversal of the mirror tree
+    printf("\nInorder of mirror tree: ");
+    inorder(mirror);
+ 
+    return 0;
+}
