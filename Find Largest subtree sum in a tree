@@ -1,0 +1,67 @@
+#include <bits/stdc++.h>
+using namespace std;
+  
+// Structure of a tree node.
+struct Node {
+    int data;
+    Node *left, *right;
+};
+  
+// Function to create new tree node.
+Node* newNode(int data)
+{
+    Node* temp = new Node;
+    temp->data = data;
+    temp->left = temp->right = NULL;
+    return temp;
+}
+  
+// Helper function to find largest
+// subtree sum recursively.
+int Until(Node* root, int& ans)
+{
+    if(root==NULL) return 0;
+    
+    int currsum=root->data+Until(root->left,ans)+Until(root->right,ans);
+    ans=max(ans,currsum);
+    return currsum;
+    
+    
+}
+  
+// Function to find largest subtree sum.
+int findLargestSubtreeSum(Node* root)
+{
+    if(root==NULL) return 0;
+    
+    int maxSum=INT_MIN;
+    Until(root,maxSum);
+    return maxSum;
+    
+    
+}
+  
+// Driver function
+int main()
+{
+    /*
+               1
+             /   \
+            /     \
+          -2       3
+          / \     /  \
+         /   \   /    \
+        4     5 -6     2
+    */
+  
+    Node* root = newNode(1);
+    root->left = newNode(-2);
+    root->right = newNode(3);
+    root->left->left = newNode(4);
+    root->left->right = newNode(5);
+    root->right->left = newNode(-6);
+    root->right->right = newNode(2);
+  
+    cout << findLargestSubtreeSum(root);
+    return 0;
+}
