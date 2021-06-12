@@ -1,0 +1,94 @@
+#include <bits/stdc++.h>
+using namespace std;
+  
+struct Node
+{
+    int data;
+    Node* left,  *right;
+};
+  
+/* This function traverse the skewed binary tree and
+   stores its nodes pointers in vector nodes[] */
+void storeBSTNodes(Node* root, vector<Node*> &v)
+{
+    if(root==NULL) return;
+    storeBSTNodes(root->left,v);
+    v.push_back(root);
+    storeBSTNodes(root->right,v);
+    
+   
+}
+  
+/* Recursive function to construct binary tree */
+Node* buildTreeUtil(vector<Node*> &v, int start,
+                   int end)
+{
+    if(start>end) return NULL;
+    
+    int mid=(start+end)/2;
+    Node* root=v[mid];
+    root->left=buildTreeUtil(v,start,mid-1);
+    root->right=buildTreeUtil(v,mid+1,end);
+    return root;
+    
+    
+}
+  
+// This functions converts an unbalanced BST to
+// a balanced BST
+Node* buildTree(Node* root)
+{
+   vector<Node*> v;
+   storeBSTNodes( root, v);
+   Node* node=buildTreeUtil(v,0,v.size()-1);
+   return node;
+   
+}
+  
+// Utility function to create a new node
+Node* newNode(int data)
+{
+    Node* node = new Node;
+    node->data = data;
+    node->left = node->right = NULL;
+    return (node);
+}
+  
+/* Function to do preorder traversal of tree */
+void preOrder(Node* node)
+{
+    if (node == NULL)
+        return;
+    printf("%d ", node->data);
+    preOrder(node->left);
+    preOrder(node->right);
+}
+  
+// Driver program
+int main()
+{
+    /* Constructed skewed binary tree is
+                10
+               /
+              8
+             /
+            7
+           /
+          6
+         /
+        5   */
+  
+    Node* root = newNode(10);
+    root->left = newNode(8);
+    root->left->left = newNode(7);
+    root->left->left->left = newNode(6);
+    root->left->left->left->left = newNode(5);
+  
+    root = buildTree(root);
+  
+    printf("Preorder traversal of balanced "
+            "BST is : \n");
+    preOrder(root);
+  
+    return 0;
+}
