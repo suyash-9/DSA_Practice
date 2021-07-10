@@ -1,0 +1,46 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+bool ispalindrome(string str,int low,int high){
+    while(low<high){
+        if(str[low]!=str[high])return false;
+        low++;
+        high--;
+    }
+    return true;
+}
+
+void until(vector<vector<string>> &all,vector<string> &curr,int start,int n,string str){
+    if(start>=n){
+        all.push_back(curr);
+        return;
+    }
+    for(int i=start;i<n;i++){
+        if(ispalindrome(str,start,i)){
+            curr.push_back(str.substr(start,i-start+1));
+            until(all,curr,i+1,n,str);
+            curr.pop_back();
+        }
+    }
+}
+
+void allPalPartitions(string str){
+    vector<vector<string>>all;
+    vector<string>curr;
+    int n=str.size();
+    until(all,curr,0,n,str);
+    for(int i=0;i<all.size();i++){
+        for(int j=0;j<all[i].size();j++){
+            cout<<all[i][j]<<" ";
+            
+        }
+        cout<<endl;
+    }
+    
+}
+ 
+int main(){
+    string str="nitin";
+     allPalPartitions(str);
+    return 0;
+}
