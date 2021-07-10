@@ -1,0 +1,36 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+void until(vector<string>&v,string s,int l,int r){
+    if(l==r){
+        v.push_back(s);
+    }
+    for(int i=l;i<=r;i++){
+        swap(s[l],s[i]);
+        until(v,s,l+1,r);
+        swap(s[l],s[i]);
+    }
+}
+
+string findKthPermutation(int n,int k){
+    string ans="";
+    for(int i=1;i<=n;i++){
+        ans+=to_string(i);
+    }
+    vector<string>v;
+    until(v,ans,0,ans.size()-1);
+    sort(v.begin(),v.end());
+    return v[k-1];
+    
+}
+
+int main() {
+	int n = 3, k = 4;
+ 
+    string kth_perm_seq
+        = findKthPermutation(n, k);
+ 
+    cout << kth_perm_seq << endl;
+ 
+    return 0;
+}
