@@ -1,0 +1,23 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+void printSubsequence(string input,string output,int idx,int n){
+    if(idx==n)return;
+    if(!output.empty()) cout<<output<<" ";
+    for(int i=idx+1;i<n;i++){
+        output+=input[i];
+        printSubsequence(input,output,i,n);
+        output=output.erase(output.size()-1);
+    }
+}
+int main()
+{
+    // output is set to null before passing in as a
+    // parameter
+    string output = "";
+    string input = "cab";
+ 
+    printSubsequence(input,output,-1,input.size());
+ 
+    return 0;
+}
