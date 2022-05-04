@@ -1,0 +1,45 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+ typedef long long int ll;
+
+void fastIO(){
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+}
+
+
+
+int main(){
+    fastIO();
+
+    
+    ll t;
+    cin>>t;
+    ll inf=100000;
+    while(t--){
+    	ll n,k;
+    	cin>>n>>k;
+    	ll arr[k];
+    	
+    	for(auto &x:arr)cin>>x;
+    	ll dp[k+1];
+    for(ll i=0;i<=k;i++){
+    	dp[i]=inf;
+    }
+    dp[0]=0;
+    for(ll i=0;i<=k;i++){
+    	for(ll j=0;j<k;j++){
+    		if(arr[j]==-1)continue;
+    		if(j+i+1<=k && dp[i]!=inf) dp[j+i+1]=min(dp[j+i+1],dp[i]+arr[j]);
+    	}
+    }
+    if(dp[k]==inf)dp[k]=-1;
+    cout<<dp[k]<<"\n";
+
+
+       
+    }
+       
+    return 0;
+}
