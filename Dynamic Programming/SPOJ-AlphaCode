@@ -1,0 +1,47 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+ typedef long long int ll;
+
+void fastIO(){
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+}
+
+string s;
+vector<int>dp;
+
+int solve(int i){
+	if(i==s.size())return 1;
+	
+	if(dp[i]!=-1)return dp[i];
+	int ans=0;
+	if(s[i]>='1' && s[i]<='9'){
+		ans+=solve(i+1);
+	}
+	if(i+1<s.size() && s[i]=='1'){
+		ans+=solve(i+2);
+	}
+	if(i+1<s.size() && s[i]=='2' && s[i+1]<='6'){
+		ans+=solve(i+2);
+	}
+	return dp[i]=ans;
+}
+
+int main(){
+    fastIO();
+    while(1){
+    	cin>>s;
+    	if(s[0]=='0')break;
+    	dp.clear();
+    	dp.resize(s.size(),-1);
+    	cout<<solve(0)<<"\n";
+    }
+
+    
+   
+
+       
+    return 0;
+    
+}
