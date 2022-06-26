@@ -1,0 +1,38 @@
+#include <bits/stdc++.h>
+ 
+using namespace std;
+ typedef long long int ll;
+ 
+void fastIO(){
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+}
+string s;
+
+void solve(string ans,int index,bool last){
+    if(s.size()==index){
+        cout<<ans<<"\n";
+        return;
+    }
+    int till=(last?(s[index]-'0'):9);
+    for(int i=0;i<=till;i++){
+        solve(ans+to_string(i),index+1,(last && (i==till)));
+    }
+}
+
+ 
+int main(){
+    fastIO();
+
+     #ifndef ONLINE_JUDGE
+    freopen("input.txt", "r", stdin);
+    freopen("output.txt", "w", stdout);
+    #endif
+    
+    cin>>s;
+    solve("",0,true);
+    
+   
+       
+    return 0;
+}
