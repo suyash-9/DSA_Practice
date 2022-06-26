@@ -1,0 +1,57 @@
+#include <bits/stdc++.h>
+ 
+using namespace std;
+ typedef long long int ll;
+ 
+void fastIO(){
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+}
+
+string s;
+
+ll dp[11][91][2];
+
+ll helper(ll index,ll sum,ll last){
+    if(index==s.size()){
+        return sum;
+    }
+    if(dp[index][sum][last]!=-1)return dp[index][sum][last];
+    ll till=(last ? (s[index]-'0'):9);
+    ll ans=0;
+    for(ll i=0;i<=till;i++){
+        ans+=helper(index+1,sum+i,(last && (i==till)));
+    }
+    return dp[index][sum][last]=ans;
+}
+
+ll solve(ll n){
+    s=to_string(n);
+    memset(dp,-1,sizeof(dp));
+    return helper(0,0,1);
+
+}
+
+ 
+int main(){
+    fastIO();
+
+     #ifndef ONLINE_JUDGE
+    freopen("input.txt", "r", stdin);
+    freopen("output.txt", "w", stdout);
+    #endif
+    
+   
+    while(1){
+        ll a,b;
+        cin>>a>>b;
+        if(a==-1 && b==-1) break;
+        cout<<solve(b)-solve(a-1)<<"\n";
+
+    }
+    
+    
+   
+       
+    return 0;
+}
