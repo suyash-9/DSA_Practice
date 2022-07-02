@@ -1,0 +1,99 @@
+#include <bits/stdc++.h>
+ 
+using namespace std;
+
+const int N=1e5;
+
+struct node{
+    int data;
+    struct node* left;
+    struct node* right;
+
+    node(int val){
+        data=val;
+        left=NULL;
+        right=NULL;
+    }
+};
+
+
+
+int cousinSum(struct node* root,int key){
+    if(root==NULL)return 0;
+    queue<struct node*>q;
+    q.push(root);
+    int curr=0;
+    bool found=false;
+    while(!q.empty()){
+        if(found)return curr;
+        int n=q.size();
+        curr=0;
+        while(n){
+            root=q.front();
+            q.pop();
+            if((root->left && root->left->data==key)||(root->right && root->right->data==key)){
+                found=true;
+            }
+            else{
+                if(root->left){
+                    curr+=root->left->data;
+                    q.push(root->left);
+                }
+                if(root->right){
+                    curr+=root->right->data;
+                    q.push(root->right);
+                }
+            }
+            n--;
+        }
+
+    }
+    return -1;
+}
+
+bool isLeaf(struct node* root){
+    if(root==NULL)return false;
+    if(root->left==NULL && root->right==NULL)return true;
+    return false;
+}
+
+int sumOfLeftleaf(struct node* root){
+    int res=0;
+    if(root!=NULL){
+        if(isLeaf(root->left)){
+            res+=(root->left->data);
+        }
+        else res+=sumOfLeftleaf(root->left);
+        res+=sumOfLeftleaf(root->right);
+    }
+    return res;
+}
+ 
+
+int main(){
+
+    // #ifndef ONLINE_JUDGE
+    // freopen("input.txt", "r", stdin);
+    // freopen("output.txt", "w", stdout);
+    // #endif
+ 
+struct node *root         = new node(20);
+    root->left                = new node(9);
+    root->right               = new node(49);
+    root->right->left         = new node(23);
+    root->right->right        = new node(52);
+    root->right->right->left  = new node(50);
+    root->left->left          = new node(5);
+    root->left->right         = new node(12);
+    root->left->right->right  = new node(12);
+    cout<<cousinSum(root,7)<<"\n";
+
+    
+    cout<<sumOfLeftleaf(root);
+    
+
+  
+
+    return 0;
+    
+}
