@@ -1,0 +1,61 @@
+#include <bits/stdc++.h>
+ 
+using namespace std;
+ typedef long long int ll;
+
+ bool sortbysec(const pair<int,int> &a,
+              const pair<int,int> &b)
+{
+    return (a.second < b.second);
+}
+ 
+void fastIO(){
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+}
+
+ll n,t;
+
+bool check(vector<ll>&arr,ll mid){
+   multiset<ll>s;
+   for(ll i=0;i<mid;i++){
+    s.insert(arr[i]);
+   }
+   for(ll i=mid;i<n;i++){
+    ll curr=*s.begin();
+    s.insert(curr+arr[i]);
+    s.erase(s.find(curr));
+   }
+   ll val=*s.rbegin();
+
+   return (val<=t);
+}
+
+
+ 
+int main(){
+    fastIO();
+    freopen("cowdance.in", "r", stdin);
+    freopen("cowdance.out", "w", stdout);
+ 
+  
+  cin>>n>>t;
+  vector<ll>arr(n);
+  for(auto &x:arr)cin>>x;
+  ll l=1,r=n;
+  ll ans=n;
+  
+    while(l<=r){
+        ll mid=l+(r-l)/2;
+        if(check(arr,mid)){
+            ans=mid;
+            r=mid-1;
+        }
+        else l=mid+1;
+    }
+    cout<<ans;
+
+       
+    return 0;
+    
+}
