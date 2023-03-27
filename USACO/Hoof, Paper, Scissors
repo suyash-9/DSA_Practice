@@ -1,0 +1,73 @@
+#include <bits/stdc++.h>
+ 
+using namespace std;
+ typedef long long int ll;
+
+ bool sortbysec(const pair<int,int> &a,
+              const pair<int,int> &b)
+{
+    return (a.second < b.second);
+}
+ 
+void fastIO(){
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+}
+ll n,k;
+ll arr[100001];
+ll dp[100001][21][3];
+
+//P =0 , H=1 , S=2
+ll winnable(ll fj,ll bes){
+    if(fj==0 and bes==2){
+       return 1;
+    }
+    if(fj==1 and bes==0){
+        return 1;
+    }
+    if(fj==2 and bes==1)
+    return 1;
+
+    return 0;
+}
+
+ll f(ll n,ll k,ll g){
+    if(n==0)return 0;
+    if(dp[n][k][g]!=-1)return dp[n][k][g];
+    ll ans=0;
+    ll win_val=winnable(arr[n],g);
+    ans=max(ans,win_val+f(n-1,k,g));
+
+    if(k>=1){
+        ll new_g=(g+1)%3;
+        ans=max(ans,win_val+f(n-1,k-1,new_g));
+        new_g=(g+2)%3;
+        ans=max(ans,win_val+f(n-1,k-1,new_g));
+    }
+    return dp[n][k][g]=ans;
+}
+ 
+int main(){
+    fastIO();
+
+    
+      freopen("hps.in", "r", stdin);
+      freopen("hps.out", "w", stdout);
+     
+
+    cin>>n>>k;
+    memset(dp,-1,sizeof dp);
+    for(ll i=1;i<=n;i++){
+        char ch;
+        cin>>ch;
+        if(ch=='P')arr[i]=0;
+        else if(ch=='H')arr[i]=1;
+        else arr[i]=2;
+    }
+    ll ans=max({f(n,k,0),f(n,k,1),f(n,k,2)});
+    cout<<ans;
+
+    
+       
+    return 0;
+}
