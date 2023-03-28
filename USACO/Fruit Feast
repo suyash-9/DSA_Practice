@@ -1,0 +1,47 @@
+#include <bits/stdc++.h>
+ 
+using namespace std;
+ typedef long long int ll;
+
+ bool sortbysec(const pair<int,int> &a,
+              const pair<int,int> &b)
+{
+    return (a.second < b.second);
+}
+ 
+void fastIO(){
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+}
+
+ll T,a,b;
+ll dp[5000001][2];
+
+ll f(ll t,ll cnt){
+    if(t>T)return 0;
+    if(dp[t][cnt]!=-1)return dp[t][cnt];
+    ll ans=t;
+    ans=max(ans,f(t+a,cnt));
+    ans=max(ans,f(t+b,cnt));
+    if(cnt==1){
+        ll val=t/2;
+        ans=max(ans,f(val+a,cnt-1));
+        ans=max(ans,f(val+b,cnt-1));
+    }
+    return dp[t][cnt]=ans;
+}
+
+ 
+int main(){
+    fastIO();
+    freopen("feast.in", "r", stdin);
+    freopen("feast.out", "w", stdout);
+
+    memset(dp,-1,sizeof dp);
+
+    cin>>T>>a>>b;
+    cout<<f(0,1);
+
+       
+    return 0;
+}
