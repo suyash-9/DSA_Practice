@@ -1,0 +1,99 @@
+#include <bits/stdc++.h>
+using namespace std;
+#define int long long
+
+
+
+class DSU
+{
+private:
+    vector<int> parent;
+    vector<int> rank;
+
+public:
+    DSU(int n) : parent(n + 1), rank(n + 1, 1)
+    {
+        for (int i = 0; i <= n; i++)
+        {
+            parent[i] = i;
+        }
+    }
+
+    int findRank(int a)
+    {
+        a = find(a);
+        return rank[a];
+    }
+
+    int find(int a)
+    {
+        if (parent[a] == a)
+            return a;
+        return parent[a] = find(parent[a]);
+    }
+
+    bool Union(int a, int b)
+    {
+        a = find(a);
+        b = find(b);
+        if (a == b)
+            return false;
+
+        if (rank[a] < rank[b])
+        {
+            swap(a, b);
+        }
+        parent[b] = a;
+        rank[a] += rank[b];
+
+        return true;
+    }
+};
+
+int32_t main()
+{
+#ifndef ONLINE_JUDGE
+    freopen("closing.in", "r", stdin);
+    freopen("closing.out", "w", stdout);
+#endif
+
+    int n ,m;   
+    cin>>n>>m;
+    vector<bool>activated(n+1,0);
+    vector<int>adj[n+1];
+
+    DSU d(n);
+    for(int i=0;i<m;i++){
+        int u,v;
+        cin>>u>>v;
+        adj[u].push_back(v);
+        adj[v].push_back(u);
+    }
+    vector<int>queries(n);
+    for(int i=0;i<n;i++){
+        int x;
+        cin>>x;
+        queries[n-i-1]=x;
+    }
+    int comp = 0;
+    vector<string>ans(n);
+    for(int i=0;i<n;i++){
+        int node = queries[i];
+        activated[node] = true;
+        comp++;
+
+        for(auto x:adj[node]){
+            if(activated[node] and activated[x] and d.Union(node,x)){
+                comp--;   
+            }
+        }
+        if(comp == 1){
+            ans[n-i-1] = "YES";
+        }
+        else ans[n-i-1] = "NO";
+    }
+    for(auto x:ans)cout<<x<<"\n";
+
+
+    return 0;
+}
