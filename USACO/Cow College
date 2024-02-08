@@ -1,0 +1,32 @@
+#include <bits/stdc++.h>
+using namespace std;
+#define int long long
+
+int32_t main()
+{
+// #ifndef ONLINE_JUDGE
+//     freopen("input.txt", "r", stdin);
+//     freopen("output.txt", "w", stdout);
+// #endif
+
+    int n;
+    cin >> n;
+
+    vector<int> v(n);
+    for (auto &x : v)
+        cin >> x;
+    sort(v.begin(), v.end());
+    int ans = 0 , fee = 0;
+    for (int i = 0; i < n; i++)
+    {
+        int val = (i + 1) * (v[n - i - 1]);
+        if(val >= ans)
+        {
+            ans = val;
+            fee = v[n-i-1];
+        }
+    }
+    cout << ans << " " << fee;
+
+    return 0;
+}
