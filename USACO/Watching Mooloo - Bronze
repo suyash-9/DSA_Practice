@@ -1,0 +1,37 @@
+#include <bits/stdc++.h>
+using namespace std;
+#define int long long
+
+int32_t main()
+{
+// #ifndef ONLINE_JUDGE
+//     freopen("input.txt", "r", stdin);
+//     freopen("output.txt", "w", stdout);
+// #endif
+
+    int n, k;
+    cin >> n >> k;
+
+    int a[n];
+    for(auto &x: a){
+        cin >> x;
+    }
+
+    int st = a[0];
+    int ans = 0;
+    int curr  = k+1;
+    for(int i=1;i<n;i++){
+        if( (a[i]-st+1)+k > curr+k ){
+            ans += curr;
+            curr = k + 1;
+            st = a[i];
+        }
+        else{
+            curr = (a[i] - st + 1)+k;
+        }
+    }
+    ans += curr;
+    cout << ans;
+
+    return 0;
+}
