@@ -1,0 +1,47 @@
+#include <bits/stdc++.h>
+using namespace std;
+#define int long long
+
+int32_t main()
+{
+    // #ifndef ONLINE_JUDGE
+    //     freopen("input.txt", "r", stdin);
+    //     freopen("output.txt", "w", stdout);
+    // #endif
+#ifndef ONLINE_JUDGE
+    freopen("paint.in", "r", stdin);
+    freopen("paint.out", "w", stdout);
+#endif
+
+    int a, b, c, d;
+    cin >> a >> b >> c >> d;
+    int ans = -1;
+    if (a < c and b < c)
+    {
+        ans = (b - a) + (d - c);
+    }
+    else if (a <= c and b >= c and d >= b)
+    {
+        ans = (d - a);
+    }
+    else if (a <= c and d <= b)
+    {
+        ans = b - a;
+    }
+    else if (c <= a and b <= d)
+    {
+        ans = (d - c);
+    }
+    else if (c <= a and d <= b and d>=a)
+    {
+        ans = (b - c);
+    }
+    else if (c < a and d < a)
+    {
+        ans = (b - a) + (d - c);
+    }
+
+    cout << ans;
+
+    return 0;
+}
