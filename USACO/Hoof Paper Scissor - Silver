@@ -1,0 +1,50 @@
+#include <bits/stdc++.h>
+using namespace std;
+#define int long long
+
+int32_t main()
+{
+// #ifndef ONLINE_JUDGE
+//     freopen("input.txt", "r", stdin);
+//     freopen("output.txt", "w", stdout);
+// #endif
+#ifndef ONLINE_JUDGE
+    freopen("hps.in", "r", stdin);
+    freopen("hps.out", "w", stdout);
+#endif
+
+    int n;
+    cin >> n;
+
+    int p[n + 1], h[n + 1], s[n + 1];
+    memset(p, 0, sizeof p);
+    memset(h, 0, sizeof h);
+    memset(s, 0, sizeof s);
+    for (int i = 1; i <= n; i++)
+    {
+        char ch;
+        cin >> ch;
+        if (ch == 'P')
+            s[i] = 1;
+        else if (ch == 'H')
+            p[i] = 1;
+        else
+            h[i] = 1;
+    }
+    for (int i = 1; i <= n; i++)
+    {
+        p[i] += p[i - 1];
+        h[i] += h[i - 1];
+        s[i] += s[i - 1];
+    }
+    int ans = 0;
+    for (int i = 1; i <= n; i++)
+    {
+        ans = max(ans, p[i] + max(h[n] - h[i], s[n] - s[i]));
+        ans = max(ans, h[i] + max(p[n] - p[i], s[n] - s[i]));
+        ans = max(ans, s[i] + max(h[n] - h[i], p[n] - p[i]));
+    }
+    cout << ans;
+
+    return 0;
+}
