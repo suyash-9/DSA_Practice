@@ -1,0 +1,53 @@
+#include <bits/stdc++.h>
+using namespace std;
+#define int long long
+
+int32_t main()
+{
+    // #ifndef ONLINE_JUDGE
+    //     freopen("input.txt", "r", stdin);
+    //     freopen("output.txt", "w", stdout);
+    // #endif
+#ifndef ONLINE_JUDGE
+    freopen("billboard.in", "r", stdin);
+    freopen("billboard.out", "w", stdout);
+#endif
+
+    int b1_x1 , b1_y1 ,b1_x2 , b1_y2;
+    cin>>b1_x1 >> b1_y1 >> b1_x2 >> b1_y2;
+    int b2_x1 , b2_y1 ,b2_x2 , b2_y2;
+    cin>> b2_x1 >> b2_y1 >> b2_x2 >> b2_y2;    
+
+    int ans = -1;
+    if( b1_x1>= b2_x1 and b1_x2 <= b2_x2 and b1_y2>=b2_y2 and b1_y1 >= b2_y1 ){
+        ans = (abs(b1_x1-b1_x2) * abs( b1_y2 - b2_y2 ));
+    }
+    else if( b1_x1>= b2_x1 and b1_x2 <= b2_x2 and b1_y2 <= b2_y2 and b1_y1<=b2_y1 ){
+        ans = (abs(b1_x1-b1_x2) * abs(b1_y1 - b2_y1));
+    }
+    else if( b1_y1 >= b2_y1 and b1_y2 <= b2_y2 and b1_x1 <= b2_x1 and b1_x2 <= b2_x2  ){
+        ans = (abs( b2_x1 - b1_x1 )*abs( b1_y2 - b1_y1 ));
+    }
+    else if( b1_y1 >= b2_y1 and b1_y2 <= b2_y2 and b1_x1>=b2_x1 and b1_x2>= b2_x2 ){
+        ans = (abs( b2_x2 - b1_x2 )*abs( b1_y2 - b1_y1 ));
+    }
+    else ans = (abs(b1_x1-b1_x2) * abs(b1_y1-b1_y2));
+
+    cout<< ans;
+    
+    return 0;
+}
+
+/*
+    Hint : THe area marked with x will be the cases else the whole rectangle has to be covered.
+            -----------
+            |    x    |     
+        -------------------
+     ---|                 |---
+    | x |                 | x |
+    | x |                 | x |
+     ---|                 |---
+        -------------------
+            |    x    |
+            ----------- 
+*/
