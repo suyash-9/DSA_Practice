@@ -1,0 +1,40 @@
+#include <bits/stdc++.h>
+using namespace std;
+#define int long long
+
+int32_t main()
+{
+    // #ifndef ONLINE_JUDGE
+    //     freopen("input.txt", "r", stdin);
+    //     freopen("output.txt", "w", stdout);
+    // #endif
+#ifndef ONLINE_JUDGE
+    freopen("breedflip.in", "r", stdin);
+    freopen("breedflip.out", "w", stdout);
+#endif
+
+    int n;
+    cin >> n;
+
+    string a, b;
+    cin >> a >> b;
+
+    int ans = 0;
+    int i = 0;
+    while (i < n)
+    {
+        if (a[i] != b[i])
+        {
+            ans++;
+            while (i < n and a[i] != b[i])
+                i++;
+        }
+        else
+        {
+            i++;
+        }
+    }
+
+    cout << ans;
+    return 0;
+}
