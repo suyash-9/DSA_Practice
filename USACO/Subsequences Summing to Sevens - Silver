@@ -1,0 +1,36 @@
+#include <bits/stdc++.h>
+using namespace std;
+#define int long long
+
+int32_t main()
+{
+// #ifndef ONLINE_JUDGE
+//     freopen("input.txt", "r", stdin);
+//     freopen("output.txt", "w", stdout);
+// #endif
+    #ifndef ONLINE_JUDGE
+        freopen("div7.in", "r", stdin);
+        freopen("div7.out", "w", stdout);
+    #endif
+
+    int n;
+    cin >> n;
+    int k = 7;
+    vector<int>hash(k,-1);
+    hash[0] = 0;
+    int sum = 0;
+    int ans = 0;
+    for (int i = 1; i <= n; i++)
+    {
+        int x;
+        cin>>x;
+        sum = (sum + x) % k;
+        if (hash[sum] != -1)
+            ans = max(i - hash[sum] , ans);
+        else
+            hash[sum] = i ;
+    }
+    cout << ans;
+
+    return 0;
+}
