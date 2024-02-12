@@ -1,0 +1,35 @@
+
+
+#include <bits/stdc++.h>
+using namespace std;
+
+int dp[1001];
+
+int f( int x , int y , int m ){
+	if( m <= 0 )return 0;
+
+	if(dp[m]!=-1)return dp[m];
+	int ans = 0;
+
+	//take x
+	if( m - x >= 0)
+	ans = max(x + f(x,y,m-x), ans);
+
+	if( m - y >= 0 )
+	ans = max(y + f(x,y,m-y), ans);
+	return dp[m]=ans;
+}
+
+int main() {
+#ifndef ONLINE_JUDGE
+    freopen("pails.in", "r", stdin);
+    freopen("pails.out", "w", stdout);
+#endif
+	int x , y, m;
+	cin >> x >> y >> m;
+
+	memset(dp,-1,sizeof dp);
+	cout << f(x,y,m);
+
+	return 0;
+}
