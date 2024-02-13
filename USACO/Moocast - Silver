@@ -1,0 +1,47 @@
+#include <bits/stdc++.h>
+#include <cstdio>
+using namespace std;
+
+int n;
+
+void dfs(int node,vector<bool>&vis,vector<vector<int>> &adj,int &cnt){
+	vis[node] = 1;
+	cnt++;
+	for(auto x:adj[node]){
+		if(!vis[x])dfs(x,vis,adj,cnt);
+	}
+}
+
+int main() {
+	freopen("moocast.in", "r", stdin);
+	freopen("moocast.out", "w", stdout);
+
+	cin >> n;
+	vector<vector<int>>cows(n,vector<int>(3));
+	for(int i=0;i<n;i++){
+		cin >> cows[i][0] >> cows[i][1] >> cows[i][2];
+	}
+	vector<vector<int>>adj(n);
+	for(int i=0;i<n;i++){
+		for(int j=0;j<n;j++){
+			if(i==j)continue;
+			int sq_dis = ((cows[i][0]-cows[j][0])*(cows[i][0]-cows[j][0])) + ((cows[i][1]-cows[j][1])*(cows[i][1]-cows[j][1]));
+			if( sq_dis <= (cows[i][2]*cows[i][2]) ){
+				adj[i].push_back(j);
+			}
+			if( sq_dis <= (cows[j][2]*cows[j][2]) ){
+				adj[j].push_back(i);
+			} 
+		}
+	}
+	int ans = 0;
+	for(int i=0;i<n;i++){
+		vector<bool>vis(n,0);
+		int cnt = 0;
+		dfs(i,vis,adj,cnt);
+		ans = max(ans,cnt);
+	}
+	cout<<ans;
+
+	return 0;
+}
