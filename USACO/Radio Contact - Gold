@@ -1,0 +1,93 @@
+#include <bits/stdc++.h>
+using namespace std;
+#define int long long
+
+int n, m;
+string sf, sb;
+int dp[1001][1001];
+
+int distance(int x1, int x2, int y1, int y2)
+{
+    int dis = ((x2 - x1) * (x2 - x1)) + ((y2 - y1) * (y2 - y1));
+    return dis;
+}
+
+int get_x(char ch)
+{
+    if (ch == 'N' or ch == 'S')
+        return 0LL;
+    else if (ch == 'E')
+        return 1LL;
+    else
+        return -1LL;
+}
+
+int get_y(char ch)
+{
+    if (ch == 'N')
+        return 1LL;
+    else if (ch == 'S')
+        return -1LL;
+    else
+        return 0LL;
+}
+
+int f(int i, int j, int fx, int fy, int bx, int by)
+{
+    if (i >= n and j >= m)
+        return 0LL;
+
+    if(dp[i][j]!=-1)return dp[i][j];
+
+    int ans = INT_MAX;
+
+    // only f moves
+    if (i < n)
+    {
+        int new_fx = fx + get_x(sf[i]);
+        int new_fy = fy + get_y(sf[i]);
+        ans = min(ans, distance(new_fx, bx, new_fy, by) + f(i + 1, j , new_fx, new_fy, bx, by));
+    }
+    // only b moves
+    if (j < m)
+    {
+        int new_bx = bx + get_x(sb[j]);
+        int new_by = by + get_y(sb[j]);
+        ans = min(ans, distance(fx, new_bx, fy, new_by) + f(i , j + 1, fx, fy, new_bx, new_by));
+    }
+    // both moves
+    if (i < n and j < m)
+    {
+        int new_fx = fx + get_x(sf[i]);
+        int new_fy = fy + get_y(sf[i]);
+        int new_bx = bx + get_x(sb[j]);
+        int new_by = by + get_y(sb[j]);
+        ans = min(ans, distance(new_fx, new_bx, new_fy, new_by) + f(i + 1, j + 1, new_fx, new_fy, new_bx, new_by));
+    }
+
+    return dp[i][j] = ans;
+}
+
+int32_t main()
+{
+// #ifndef ONLINE_JUDGE
+//     freopen("input.txt", "r", stdin);
+//     freopen("output.txt", "w", stdout);
+// #endif
+    freopen("radio.in", "r", stdin);
+    freopen("radio.out", "w", stdout);
+
+    memset(dp,-1,sizeof dp);
+
+    cin >> n >> m;
+
+    int fx, fy, bx, by;
+    cin >> fx >> fy >> bx >> by;
+
+    cin >> sf >> sb;
+
+    int ans = f(0, 0, fx, fy, bx, by);
+    cout << ans;
+
+    return 0;
+}
