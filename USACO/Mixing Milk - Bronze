@@ -1,0 +1,35 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+int main(){
+    freopen("mixmilk.in", "r", stdin);
+    freopen("mixmilk.out", "w", stdout);
+
+    int c1,m1,c2,m2,c3,m3;
+    cin>>c1>>m1>>c2>>m2>>c3>>m3;
+
+    for(int i=1;i<=100;i++){
+        int available = 0;
+        if(i%3==1){
+            available = (c2-m2);
+            int pour = min(available,m1);
+            m1 -= pour;
+            m2 += pour;
+        }
+        else if(i%3==2){
+            available = (c3-m3);
+            int pour = min(available,m2);
+            m2 -= pour;
+            m3 += pour;
+        }
+        else{
+            available = (c1-m1);
+            int pour = min(available,m3);
+            m3 -= pour;
+            m1 += pour;
+        }
+    }
+    cout<<m1<<endl<<m2<<endl<<m3;
+
+    return 0;
+}
