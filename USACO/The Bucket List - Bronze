@@ -1,0 +1,37 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+/*
+      +1              -1
+     4<--------------->10
+2<--------->6   8<----------->13
++2         -2   +3            -3
+
+From this example we can use the line sweep
+
+*/
+
+int main(){
+    freopen("blist.in", "r", stdin);
+    freopen("blist.out", "w", stdout);
+
+    int n;
+    cin>>n;
+
+    vector<pair<int,int>>v;
+    for(int i=0;i<n;i++){
+        int s,t,b;
+        cin>>s>>t>>b;
+        v.push_back({s,b});
+        v.push_back({t,-b});
+    }
+    sort(v.begin(),v.end());
+    int ans = 0;
+    int curr = 0;
+    for(auto x: v){
+        curr += x.second;
+        ans = max(ans,curr);
+    }
+    cout<<ans;
+    return 0;
+}
