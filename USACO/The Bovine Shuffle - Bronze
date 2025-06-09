@@ -1,0 +1,29 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+int main(){
+    freopen("shuffle.in", "r", stdin);
+    freopen("shuffle.out", "w", stdout);
+
+    int n;
+    cin>>n;
+
+    vector<int>pos(n);
+    for(auto &x: pos){
+        cin >> x;
+        x--;
+    }
+    vector<int>arr(n);
+    for(auto &x: arr){
+        cin>>x;
+    }
+    vector<int>ans(n);
+    for(int k=0;k<3;k++){
+        for(int i=0;i<n;i++){
+            ans[i]=arr[pos[i]];
+        }
+        arr = ans;
+    }
+    for(auto x: ans)cout<<x<<endl;
+    return 0;
+}
